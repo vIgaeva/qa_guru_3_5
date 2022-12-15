@@ -13,8 +13,11 @@ def test_finds_selene():
 
 def test_finds_selene():
     browser.open('/ncr').should(have.title('Google'))
-    browser.element('[name=q]').type('selene').press_enter()
-    results = browser.all('#rso>div')
+    browser.element('//*[name=q]').type('selene').press_enter() #xpath, *=input
+    browser.element('[name=q]').type('selene').press_enter() #css selector
+
+    results = browser.all('//input[@id="rso"]/div') #xpath
+    results = browser.all('#rso>div')               #css selector
     results.should(have.size_greater_than_or_equal(6))
 
     browser.element('[name=q]').type(' yashaka github').press_enter()
